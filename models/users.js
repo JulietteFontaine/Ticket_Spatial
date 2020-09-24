@@ -12,7 +12,6 @@ var userSchema = mongoose.Schema({
     name: String,
     firstname: String,
     mail: String,
-    departureTime: String,
     password: String,
     lasttrip:  [journeySchema]
   });

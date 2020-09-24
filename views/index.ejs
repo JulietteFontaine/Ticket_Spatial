@@ -3,9 +3,41 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+  
+ <div class="d-flex">
+    <form action="/SignIn" method="post" >
+      <label for="exampleInputEmail1">SignIn</label>
+      <div class="form-group">
+        <input type="email" class="form-control" name="emailSignInFF" placeholder ="Email" aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" name="passwordSignInFF" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+
+    <form action="/SignUp" method="post">
+    <label for="exampleInputEmail1">SignUp</label>
+    <div class="form-group">
+      <input type="text" class="form-control" name="nameSignUpFF" placeholder ="Name" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" name="firstNameSignUpFF" placeholder ="FirstName" aria-describedby="emailHelp">
+    </div>
+    <div class="form-group">
+      <input type="email" class="form-control" name="emailSignUpFF" placeholder ="Email" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" name="passwordSignUpFF" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+
+  </div>  
+
   </body>
 </html>

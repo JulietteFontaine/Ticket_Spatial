@@ -52,4 +52,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.locals.majuscule = function (mot) {
+  return mot.charAt(0).toUpperCase() + mot.slice(1).toLowerCase();
+}
+
 module.exports = app;
