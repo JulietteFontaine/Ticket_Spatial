@@ -14,6 +14,11 @@ body {
   font-family: 'Patua One', cursive;
 }
 
+#boutton:hover {
+  
+  transform: scale(1.2);
+}
+
 .home {
   background: -webkit-linear-gradient(top, #d4e0e9 10%,#bad0e0 21%,#1e677e 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e677e', endColorstr='#c7d8e5',GradientType=0 );
@@ -70,15 +75,41 @@ footer.sticky-footer .copyright {
   font-size: 0.8rem;
 }
 
-.cardResult {
-  width: 45vw;
-  font-family: 'Patua One', cursive;
-}
-
 .img-responsive{
   width: 250px;
 }
 
 .monde {
-  opacity: .5;
+  opacity: .3;
+}
+
+.card:hover {
+  transform: scale(1.2);
+}
+
+.card{
+  color:#408499;
+}
+
+.btn-danger{
+  background-color:#408499 !important;
+}
+
+.btn-danger:hover {
+  opacity: .3;
+}
+
+.btn-danger
+{ 
+ border:none; 
+}
+
+thead{
+  background-color:#408499 ;
+  color:white;
+}
+
+td {
+  color: #408499;
+  font-family: 'Patua One', cursive;
 }

@@ -20,12 +20,36 @@ router.get('/', function(req, res, next) {
 
 /* GET homepage. */
 router.get('/homepage', function(req, res, next) {
+  console.log(req.session.panier)
   res.render('homepage', { title: 'Express' });
 });
 
 /* GET Results. */
-router.get('/result', function(req, res, next) {
-  res.render('result', { title: 'Resultat de votre recherche' });
+router.get('/panier', async function(req, res, next) {
+  var searchTrip = await journeyModel.find({
+    departure: req.query.departureFF,
+    arrival: req.query.arrivalFF,
+    date: req.query.dateDepartFF,
+    price : req.query.priceFF
+  });
+
+  for (i=0; i<searchTrip.length; i++){
+  
+  // panier = req.session.panier;
+  var panier=[];
+
+    panier.push({
+    departure: searchTrip[i].departure,
+    arrival: searchTrip[i].arrival,
+    date: searchTrip[i].date,
+    price: searchTrip[i].price,
+    departureTime: searchTrip[i].departureTime,
+  })
+  
+};
+
+console.log(searchTrip)
+res.render('panier', {searchTrip, panier})//Juliette: Session a initialiser pour pouvoir faire le total des billets ajoutés
 });
 
 /* SignUp route */
@@ -56,8 +80,6 @@ router.post('/SignUp', async function(req, res, next) {
 }
 });
 
-
-
 /* SignIn route */
 router.post('/SignIn', async function(req, res, next) {
   var searchUser = await userModel.findOne({
@@ -78,21 +100,16 @@ router.post('/SignIn', async function(req, res, next) {
 });
 
 router.post('/SearchTrip', async function(req, res, next) {
+
+  var date = req.body.dateDepartFF;
   var searchTrip = await journeyModel.find({
     departure: majuscule(req.body.departFF),
     arrival: majuscule(req.body.arriveeFF),
-    date: req.body.dateDepartFF+"T00:00:00.000+00:00",
+    date: req.body.dateDepartFF,
   });
-  console.log(req.body.dateDepartFF);
-  console.log(majuscule(req.body.arriveeFF));
-  if(searchTrip){
-  res.render('index', {titlesearchTrip});  //Martin : Attention, il faut bien remplacer le res.render pour envoyer notre user vers la page "Resultat" quand elle sera créée
-  }
 
-
-    res.render('', {searchTrip});  //Martin : Attention, il faut bien remplacer le res.render pour envoyer notre user vers la page "Resultat" quand elle sera créée
-  }
-);
+res.render('result', {searchTrip, date});
+});
 
 module.exports = router;
 
@@ -150,4 +167,3 @@ module.exports = router;
 
 //   res.render('index', { title: 'Express' });
 // });
-

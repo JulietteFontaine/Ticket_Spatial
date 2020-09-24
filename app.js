@@ -52,8 +52,15 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
 app.locals.majuscule = function (mot) {
   return mot.charAt(0).toUpperCase() + mot.slice(1).toLowerCase();
 }
 
+// format de date
+app.locals.dateFormat = function(date) {
+  var date = new Date(date);
+  var format= date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear();
+  return format;
+  };
 module.exports = app;

@@ -17,32 +17,41 @@
     
          <!-- Grille -->
         <div class="container">
-            <div class="col-12 col-lg-10 col-sm-6 d-flex mx-auto">
-            <h5>Trajet</h5>
-             </div>
-             
-             <!-- Form -->
-              <div class="col-12 col-sm-6 col-lg-10 d-flex mx-auto">
-                <form action="/SearchTrip" method="post">
-                    <div class="form-row align-items-center">
-                      <div class="col-sm-3,5 my-1">
-                        <label class="sr-only" for="inlineFormInputName">D'où partez-vous ?</label>
-                        <input type="text" class="form-control" name="departFF" placeholder="D'où partez-vous ?">
-                      </div>
-                      <div class="col-sm-4 my-1">
-                        <label class="sr-only" for="inlineFormInputGroupUsername">Où allez-vous ?</label>
-                          <input type="text" class="form-control" name="arriveeFF" placeholder="Où allez-vous ?">
-                      </div> 
-                      <div class="col-sm-3 my-1">
-                            <input type="date" class="form-control" name="dateDepartFF" placeholder="Quand partez-vous ?">
-                      </div>
-                      <div class="col-sm-1 my-1">
-                        <button type="submit" class="btn btn-outline-light">GO</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-       
+            
+            <h5>Mes tickets </h5>
+                          
+             <!-- Tableau -->
+             <table class="table table-light">
+             <thead class= "my-3">
+               <tr>
+                 <th scope="col">N°</th>
+                 <th scope="col">Trajet</th>
+                 <th scope="col">Date du départ</th>
+                 <th scope="col">Horraire de départ</th>
+                 <th scope="col">Prix</th>
+               </tr>
+             </thead>
+             <tbody>
+            <%for(i=0; i<panier.length; i++){%>
+               <tr>
+                 <td scope="row">1</td>
+                 <td><%=panier[i].departure%>/<%=panier[i].arrival%></td>
+                 <td><%=dateFormat(panier[i].date)%></td>
+                 <td><%=panier[i].departureTime%></td>
+                 <td><%=panier[i].price%>€</td>
+               </tr>
+               <%}%>
+              <!--total-->
+              
+                <td scope="row"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>total€</td>
+              </tr>
+
+             </tbody>
+           </table>
             
                 <div class="container-fluid align-items-center d-flex justify-content-center my-5">
                 <span class="monde" style="font-size: 12em; color: white">
