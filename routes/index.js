@@ -23,6 +23,11 @@ router.get('/homepage', function(req, res, next) {
   res.render('homepage', { title: 'Express' });
 });
 
+/* GET Results. */
+router.get('/result', function(req, res, next) {
+  res.render('result', { title: 'Resultat de votre recherche' });
+});
+
 /* SignUp route */
 router.post('/SignUp', async function(req, res, next) {
   var searchUser = await userModel.findOne({
@@ -81,7 +86,7 @@ router.post('/SearchTrip', async function(req, res, next) {
   console.log(req.body.dateDepartFF);
   console.log(majuscule(req.body.arriveeFF));
   if(searchTrip){
-  res.render('index', {searchTrip});  //Martin : Attention, il faut bien remplacer le res.render pour envoyer notre user vers la page "Resultat" quand elle sera créée
+  res.render('index', {titlesearchTrip});  //Martin : Attention, il faut bien remplacer le res.render pour envoyer notre user vers la page "Resultat" quand elle sera créée
   }
 
 
