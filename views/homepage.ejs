@@ -16,34 +16,42 @@
         <%- include('navbar'); %>
     
          <!-- Grille -->
-        <div class="container-fluid">
-            <div class="col-12 col-lg-6 col-sm-6 d-flex mx-auto">
+        <div class="container">
+            <div class="col-12 col-lg-8 col-sm-6 d-flex mx-auto">
             <h5>Trajet</h5>
-        </div>
-              <div class="col-12 col-lg-6 col-sm-6 d-flex mx-auto">
+             </div>
+             
+             <!-- Form -->
+              <div class="col-12 col-sm-8 col-lg-8 d-flex mx-auto">
                 <form action="/SearchTrip" method="post">
                     <div class="form-row align-items-center">
-                      <div class="col-sm-4 my-1">
+                      <div class="col-sm-3,5 my-1">
                         <label class="sr-only" for="inlineFormInputName">D'où partez-vous ?</label>
                         <input type="text" class="form-control" name="departFF" placeholder="D'où partez-vous ?">
                       </div>
-                      <div class="col-sm-4 my-1">
+                      <div class="col-sm-3,5 my-1">
                         <label class="sr-only" for="inlineFormInputGroupUsername">Où allez-vous ?</label>
-        
                           <input type="text" class="form-control" name="arriveeFF" placeholder="Où allez-vous ?">
-
                       </div> 
-                      <div class="col-sm-4 my-1">
+                      <div class="col-sm-3,5 my-1">
                             <input type="date" class="form-control" name="dateDepartFF" placeholder="Quand partez-vous ?">
                       </div>
-                      <div class="col-auto my-1">
+                      <div class="col-sm-1,5 my-1">
                         <button type="submit" class="btn btn-outline-light">GO</button>
                       </div>
                     </div>
                   </form>
-
+                </div>
+       
             
-        </div>
+                <div class="container-fluid align-items-center d-flex justify-content-center my-5">
+                <span class="monde" style="font-size: 12em; color: white">
+                <i class="fas fa-globe-americas"></i>
+                </span>
+            </div>
+
+    </div>
+
      </div>
      <%- include('footer'); %>
     </div>

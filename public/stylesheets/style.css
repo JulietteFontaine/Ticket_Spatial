@@ -5,7 +5,7 @@ body {
 .header {
   margin-bottom: 50px;
   height: 60px;
-  background-color: #d4e0e9 ;
+  background-color: none;
   font-size: 20px;
 }
 
@@ -68,4 +68,12 @@ footer.sticky-footer {
 footer.sticky-footer .copyright {
   line-height: 1;
   font-size: 0.8rem;
+}
+
+.img-responsive{
+  width: 250px;
+}
+
+.monde {
+  opacity: .5;
 }
