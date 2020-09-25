@@ -90,7 +90,7 @@ router.post('/SignUp', async function(req, res, next) {
     }
 
 
-  res.redirect('homepage', { title: 'Express' });  //Martin : Attention, il faut bien remplacer le res.render pour envoyer notre user vers la page "achat" quand elle sera créée
+  res.redirect('/homepage');  //Martin : Attention, il faut bien remplacer le res.render pour envoyer notre user vers la page "achat" quand elle sera créée
 }else {
   res.redirect('/')
 }
