@@ -32,10 +32,6 @@ router.get('/homepage', function(req, res, next) {
 
 /* GET Results. */
 router.get('/panier', async function(req, res, next) {
-
-console.log('SESSION PANIER ==', req.session.panier)
-console.log('REQ QUERY ==', req.query)
-
   
   var searchTrip = await journeyModel.find({
     departure: req.query.departureFF,
@@ -44,7 +40,6 @@ console.log('REQ QUERY ==', req.query)
     price : req.query.priceFF
   });
 
-  
   for (i=0; i<searchTrip.length; i++){
   
     req.session.panier.push({
@@ -58,7 +53,6 @@ console.log('REQ QUERY ==', req.query)
 };
 
 res.render('panier', {searchTrip, panier:req.session.panier})
-
 });
 
 /* SignUp route */
@@ -118,6 +112,13 @@ router.post('/SearchTrip', async function(req, res, next) {
   });
 
 res.render('result', {searchTrip, date, panier:req.session.panier});
+});
+
+/* Lasttrip */
+router.get('/lasttrip', async function(req, res, next) {
+  
+  
+res.render('lasttrip')
 });
 
 module.exports = router;

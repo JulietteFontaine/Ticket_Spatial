@@ -12,10 +12,23 @@ body {
 #boutton {
   color: #408499;
   font-family: 'Patua One', cursive;
+  background-color: none;
+  border: none;
 }
 
-#boutton:hover {
-  
+
+#PlanetHack {
+  color: #408499;
+  font-family: 'Patua One', cursive;
+}
+
+#PlanetHack:hover {
+  color: #408499;
+  transform: scale(1.2);
+}
+
+#button:hover {
+  color: #408499;
   transform: scale(1.2);
 }
 

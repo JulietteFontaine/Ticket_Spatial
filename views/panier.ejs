@@ -32,26 +32,57 @@
                </tr>
              </thead>
              <tbody>
-            <%for(i=0; i<panier.length; i++){%>
+            <%var total = 0;
+              for(i=0; i<panier.length; i++){%>
+
                <tr>
-                 <td scope="row">1</td>
+                 <td scope="row"><%=i +1%></td>
                  <td><%=panier[i].departure%>/<%=panier[i].arrival%></td>
                  <td><%=dateFormat(panier[i].date)%></td>
                  <td><%=panier[i].departureTime%></td>
                  <td><%=panier[i].price%>€</td>
-               </tr>
-               <%}%>
-              <!--total-->
-              
+                </tr>
+               
+              <%total = panier[i].price + total}%>
+              <tr>
                 <td scope="row"></td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>total€</td>
+                <td><%=total%>€</td>
               </tr>
-
+ 
              </tbody>
            </table>
+
+                        <!-- Trigger the modal with a button -->
+                  <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                  </div>
+                <!-- Modal -->
+
+                <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+
+                </div>
+                <div class="modal-body d-flex flex-column align-items-center">
+                <p>Vous êtes prêts pour le décollage ! Merci d'avoir choisi PlanetHack, et n'oubliez pas votre masque dans la navette </p>
+                <iframe width="360" height="280" src="https://www.youtube.com/embed/U_VFgZzEA2c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="modal-footer">
+                <button href="/homepage" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+
+
+                </div>
+                </div>
+
             
                 <div class="container-fluid align-items-center d-flex justify-content-center my-5">
                 <span class="monde" style="font-size: 12em; color: white">
