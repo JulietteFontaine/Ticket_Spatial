@@ -16,7 +16,6 @@ body {
   border: none;
 }
 
-
 #PlanetHack {
   color: #408499;
   font-family: 'Patua One', cursive;
@@ -61,6 +60,17 @@ h1 {
 
 .btn {
   color: rgb(255, 255, 255);
+  font-family: 'Patua One', cursive;
+}
+
+.dropdown-toggle{
+  background: none !important;
+  color: #408499;
+  font-family: 'Patua One', cursive;
+}
+
+#boutton-dd {
+  color: #408499;
   font-family: 'Patua One', cursive;
 }
 
@@ -142,3 +152,4 @@ td {
 .modal.in .modal-dialog {
 
 }
+

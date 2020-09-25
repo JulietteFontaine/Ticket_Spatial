@@ -39,12 +39,16 @@ router.get('/panier', async function(req, res, next) {
   var alreadyExist = false;
   var panier = req.session.panier;
   
+  if(!req.query.departureFF){
+    var searchTrip = [];
+  }else{
   var searchTrip = await journeyModel.find({
     departure: req.query.departureFF,
     arrival: req.query.arrivalFF,
     date: req.query.dateDepartFF,
     price : req.query.priceFF
   });
+
   
 
   for (var i=0; i<panier.length; i++){
@@ -56,7 +60,7 @@ router.get('/panier', async function(req, res, next) {
 
     }
 
-if(alreadyExist ==false){
+if(alreadyExist == false){
   for (i=0; i<searchTrip.length; i++){
   
     req.session.panier.push({
@@ -68,7 +72,7 @@ if(alreadyExist ==false){
     })
     }}
     ;
-
+  }
 res.render('panier', {searchTrip, panier:req.session.panier})
 });
 
@@ -141,7 +145,10 @@ router.get('/lasttrip', async function(req, res, next) {
     res.render('index');
   }
 
-  panier = req.session.panier
+  if(!req.session.panier){
+    panier = [];
+  } else { panier = req.session.panier ; }
+
   user = await userModel.findOne({mail : req.session.user.mail})
   
   
@@ -156,11 +163,11 @@ router.get('/lasttrip', async function(req, res, next) {
         departureTime: panier[i].departureTime,
       })
 
-       var lasttripSaved = await user.save();
-       var ltsFF = lasttripSaved.lasttrip;
-  };
+    };
+    var lasttripSaved = await user.save();
+    var ltsFF = lasttripSaved.lasttrip;
   
-  res.render('lasttrip', { lasttripSaved, ltsFF:lasttripSaved.lasttrip})
+  res.render('lasttrip', { lasttripSaved, ltsFF : lasttripSaved.lasttrip})
   
   });
 
