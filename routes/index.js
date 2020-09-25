@@ -25,13 +25,15 @@ router.get('/homepage', function(req, res, next) {
     req.session.panier = [];
   }
 
-  console.log("PANIER ==", req.session.panier)
 
   res.render('homepage', {panier:req.session.panier});
 });
 
 /* GET Results. */
 router.get('/panier', async function(req, res, next) {
+
+  var alreadyExist = false;
+  var panier = req.session.panier;
   
   var searchTrip = await journeyModel.find({
     departure: req.query.departureFF,
@@ -40,6 +42,16 @@ router.get('/panier', async function(req, res, next) {
     price : req.query.priceFF
   });
 
+  for (var i=0; i<panier.length; i++){
+    console.log("st :", searchTrip);
+    console.log("panier:", panier[i]);
+    if(searchTrip[0].departure == panier[i].departure && searchTrip[0].arrival == panier[i].arrival && searchTrip[0].price == panier[i].price){
+    alreadyExist = true;
+    }
+    console.log("alreadyExist:", alreadyExist);
+    }
+
+if(alreadyExist ==false){
   for (i=0; i<searchTrip.length; i++){
   
     req.session.panier.push({
@@ -49,8 +61,8 @@ router.get('/panier', async function(req, res, next) {
       price: searchTrip[i].price,
       departureTime: searchTrip[i].departureTime,
     })
-    
-};
+    }}
+    ;
 
 res.render('panier', {searchTrip, panier:req.session.panier})
 });
@@ -74,6 +86,7 @@ router.post('/SignUp', async function(req, res, next) {
     req.session.user = {
       firstname: newUserSave.firstname,
       id: newUserSave._id,
+      mail: newUserSave.mail
     }
 
 
@@ -96,7 +109,8 @@ router.post('/SignIn', async function(req, res, next) {
   }else {
     req.session.user = {
       firstname: searchUser.firstname,
-      id: searchUser._id
+      id: searchUser._id,
+      mail: searchUser.mail
     }
     res.redirect('/homepage');
   }
@@ -114,12 +128,32 @@ router.post('/SearchTrip', async function(req, res, next) {
 res.render('result', {searchTrip, date, panier:req.session.panier});
 });
 
-/* Lasttrip */
+/* LastTrips route */
+
 router.get('/lasttrip', async function(req, res, next) {
+
+  panier = req.session.panier
+  user = await userModel.findOne({mail : req.session.user.mail})
   
   
-res.render('lasttrip')
-});
+    
+    for (i=0; i<panier.length; i++){
+    
+      user.lasttrip.push({
+        departure: panier[i].departure,
+        arrival: panier[i].arrival,
+        date: panier[i].date,
+        price: panier[i].price,
+        departureTime: panier[i].departureTime,
+      })
+
+       var lasttripSaved = await user.save();
+       var ltsFF = lasttripSaved.lasttrip;
+  };
+  
+  res.render('lasttrip', { lasttripSaved, ltsFF})
+  
+  });
 
 module.exports = router;
 
