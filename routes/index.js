@@ -26,7 +26,7 @@ router.get('/homepage', function(req, res, next) {
   }
 
 
-  res.render('homepage', {panier:req.session.panier});
+  res.render('/homepage', {panier:req.session.panier});
 });
 
 /* GET Results. */
@@ -64,7 +64,7 @@ if(alreadyExist ==false){
     }}
     ;
 
-res.render('panier', {searchTrip, panier:req.session.panier})
+res.render('/panier', {searchTrip, panier:req.session.panier})
 });
 
 /* SignUp route */
