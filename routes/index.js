@@ -11,7 +11,7 @@ var majuscule = function (mot) {
 var userModel = require('../models/users')
 var journeyModel = require('../models/journey')
 
-var city = ["Paris","Marseille","Nantes","Lyon","Rennes","Melun","Bordeaux","Lille"]
+var city = ["Terre","Mars","Neptune","Saturne","Uranus","Pluton","Mercure","Namek"]
 var date = ["2018-11-20","2018-11-21","2018-11-22","2018-11-23","2018-11-24"]
 
 /* GET Index */
@@ -32,6 +32,10 @@ router.get('/homepage', function(req, res, next) {
 /* GET Results. */
 router.get('/panier', async function(req, res, next) {
 
+  if(!req.session.user){
+    res.render('index');
+  }
+
   var alreadyExist = false;
   var panier = req.session.panier;
   
@@ -41,6 +45,7 @@ router.get('/panier', async function(req, res, next) {
     date: req.query.dateDepartFF,
     price : req.query.priceFF
   });
+  
 
   for (var i=0; i<panier.length; i++){
     console.log("st :", searchTrip);
@@ -48,7 +53,7 @@ router.get('/panier', async function(req, res, next) {
     if(searchTrip[0].departure == panier[i].departure && searchTrip[0].arrival == panier[i].arrival && searchTrip[0].price == panier[i].price){
     alreadyExist = true;
     }
-    console.log("alreadyExist:", alreadyExist);
+
     }
 
 if(alreadyExist ==false){
@@ -98,6 +103,7 @@ router.post('/SignUp', async function(req, res, next) {
 
 /* SignIn route */
 router.post('/SignIn', async function(req, res, next) {
+
   var searchUser = await userModel.findOne({
     mail: req.body.emailSignInFF,
     password: req.body.passwordSignInFF
@@ -131,6 +137,9 @@ res.render('result', {searchTrip, date, panier:req.session.panier});
 /* LastTrips route */
 
 router.get('/lasttrip', async function(req, res, next) {
+  if(!req.session.user){
+    res.render('index');
+  }
 
   panier = req.session.panier
   user = await userModel.findOne({mail : req.session.user.mail})
@@ -151,7 +160,16 @@ router.get('/lasttrip', async function(req, res, next) {
        var ltsFF = lasttripSaved.lasttrip;
   };
   
-  res.render('lasttrip', { lasttripSaved, ltsFF})
+  res.render('lasttrip', { lasttripSaved, ltsFF:lasttripSaved.lasttrip})
+  
+  });
+
+  /* LastTrips route */
+
+router.get('/deconnexion', async function(req, res, next) {
+
+  req.session.destroy()
+  res.render('index', {})
   
   });
 
