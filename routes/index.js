@@ -48,7 +48,7 @@ router.get('/panier', async function(req, res, next) {
   
 };
 
-console.log(searchTrip)
+console.log(searchTrip);
 res.render('panier', {searchTrip, panier})//Juliette: Session a initialiser pour pouvoir faire le total des billets ajoutés
 });
 
