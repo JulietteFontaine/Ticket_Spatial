@@ -3,6 +3,7 @@ var router = express.Router();
 var request = require("sync-request");
 const mongoose = require('mongoose');
 
+
 var majuscule = function (mot) {
   return mot.charAt(0).toUpperCase() + mot.slice(1).toLowerCase();
 };
@@ -20,12 +21,22 @@ router.get('/', function(req, res, next) {
 
 /* GET homepage. */
 router.get('/homepage', function(req, res, next) {
-  console.log(req.session.panier)
-  res.render('homepage', { title: 'Express' });
+  if(req.session.panier == undefined){
+    req.session.panier = [];
+  }
+
+  console.log("PANIER ==", req.session.panier)
+
+  res.render('homepage', {panier:req.session.panier});
 });
 
 /* GET Results. */
 router.get('/panier', async function(req, res, next) {
+
+console.log('SESSION PANIER ==', req.session.panier)
+console.log('REQ QUERY ==', req.query)
+
+  
   var searchTrip = await journeyModel.find({
     departure: req.query.departureFF,
     arrival: req.query.arrivalFF,
@@ -33,23 +44,21 @@ router.get('/panier', async function(req, res, next) {
     price : req.query.priceFF
   });
 
+  
   for (i=0; i<searchTrip.length; i++){
   
-  // panier = req.session.panier;
-  var panier=[];
-
-    panier.push({
-    departure: searchTrip[i].departure,
-    arrival: searchTrip[i].arrival,
-    date: searchTrip[i].date,
-    price: searchTrip[i].price,
-    departureTime: searchTrip[i].departureTime,
-  })
-  
+    req.session.panier.push({
+      departure: searchTrip[i].departure,
+      arrival: searchTrip[i].arrival,
+      date: searchTrip[i].date,
+      price: searchTrip[i].price,
+      departureTime: searchTrip[i].departureTime,
+    })
+    
 };
 
-console.log(searchTrip);
-res.render('panier', {searchTrip, panier})//Juliette: Session a initialiser pour pouvoir faire le total des billets ajoutés
+res.render('panier', {searchTrip, panier:req.session.panier})
+
 });
 
 /* SignUp route */
@@ -74,7 +83,7 @@ router.post('/SignUp', async function(req, res, next) {
     }
 
 
-  res.render('index', { title: 'Express' });  //Martin : Attention, il faut bien remplacer le res.render pour envoyer notre user vers la page "achat" quand elle sera créée
+  res.redirect('homepage', { title: 'Express' });  //Martin : Attention, il faut bien remplacer le res.render pour envoyer notre user vers la page "achat" quand elle sera créée
 }else {
   res.redirect('/')
 }
@@ -95,7 +104,7 @@ router.post('/SignIn', async function(req, res, next) {
       firstname: searchUser.firstname,
       id: searchUser._id
     }
-    res.render('homepage', {firstname: searchUser.firstname, id: searchUser._id});  //Martin : Attention, il faut bien remplacer le res.render pour envoyer notre user vers la page "achat" quand elle sera créée
+    res.redirect('/homepage');
   }
 });
 
@@ -108,7 +117,7 @@ router.post('/SearchTrip', async function(req, res, next) {
     date: req.body.dateDepartFF,
   });
 
-res.render('result', {searchTrip, date});
+res.render('result', {searchTrip, date, panier:req.session.panier});
 });
 
 module.exports = router;
